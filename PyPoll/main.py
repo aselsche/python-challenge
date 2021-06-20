@@ -1,0 +1,47 @@
+# Modules to be able to opent the CSV files:
+import os
+import csv
+
+# Set path to the financial data budget_data.csv
+csvpath = os.path.join(".","Resources", "election_data.csv") 
+
+candidates={} # Initializing candidates as a dictionary so we can use key and value to capture the data.
+total_num_votes = 0 # Initializng the variable to be able to count the rows.
+
+def calc_perc(val,total): #Defining a function to calculate the percentage of the total votes and formatting it
+    return f"{round(val/total*100, 3)} %"
+
+with open(csvpath) as csvfile: # Open the CSV file
+    csvreader = csv.reader(csvfile, delimiter=",")
+    next(csvreader, None) #skipping the header
+
+    # Loop through the dataset looking for the total number of votes :
+    for row in csvreader:
+        # if row[2] in candidates.keys():
+        #     candidates[row[2]] = candidates[row[2]] + 1
+        # else:
+        #     candidates[row[2]]=1 #initializing the key for specific candidate
+        candidates[row[2]] = candidates.get(row[2],0) + 1 #this is a shorter way of above
+        total_num_votes = total_num_votes+1
+
+winner=["No Name",0] #setting up winner variable to track who got the most votes.
+all_candidates=""
+for name, votes in candidates.items(): #iterating using .items to find the winner
+    all_candidates +=f"{name} : {calc_perc(votes,total_num_votes)} ({votes})\n"
+    if votes > winner[1]: #using if statement to check if current item has more votes than previous item with most votes
+        winner=[name, votes]
+
+election_results= f"""
+Election Results
+------------------------------------
+Total Votes: {total_num_votes}
+-----------------------------------
+{all_candidates}-----------------------------------
+Winner: {winner[0]}
+-----------------------------------
+"""
+
+print(election_results)
+textfile_path = os.path.join(".","Analysis", "elections_results.txt") 
+with open(textfile_path, "w") as text_file:
+    text_file.write(election_results)
