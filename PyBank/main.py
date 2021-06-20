@@ -50,7 +50,7 @@ result_str = f"""
 
 """
 print(result_str)
-with open("Output.txt", "w") as text_file:
+output_file = os.path.join(".","Analysis", "AnalysisResults.txt") 
+with open(output_file, "w") as text_file:
     text_file.write(result_str)
-
 
