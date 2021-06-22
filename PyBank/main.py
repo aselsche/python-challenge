@@ -1,11 +1,11 @@
-# Modules:
+# Modules
 import os
 import csv
 
 # Set path to the financial data budget_data.csv
 csvpath = os.path.join("Resources", "budget_data.csv") # Setting a path to the file.
 
-# Setting up variables
+# Setup up variables
 total_number_months = 0 # Initializing total number of months count.
 profit_or_losses = 0.0 # Initializing total amount of Profit/Losses.
 
