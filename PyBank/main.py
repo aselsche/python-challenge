@@ -40,7 +40,7 @@ with open(csvpath) as csvfile:
 
         prev_row=row
    
-# Display the net total and analysis summary by creating a variable that can be used later for the display and file output:
+# Display the net total and analysis summary:
 result_str = f"""
     Financial Analysis:
     ----------------------------------------
@@ -55,4 +55,3 @@ print(result_str)
 output_file = os.path.join(".","Analysis", "AnalysisResults.txt") 
 with open(output_file, "w") as text_file:
     text_file.write(result_str)
-
