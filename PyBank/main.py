@@ -4,18 +4,20 @@ import csv
 
 # Set path to the financial data budget_data.csv
 csvpath = os.path.join("Resources", "budget_data.csv") # Setting a path to the file.
+
+# Setting up variables
 total_number_months = 0 # Initializing total number of months count.
 profit_or_losses = 0.0 # Initializing total amount of Profit/Losses.
 
 # Setup variables for the average total change:
 prev_row = None #prev_row is None because we are not in the loop yet.
-total_change = 0.0 # Initializing the total change.
+total_change = 0.0 # Initializing the total change. It is float because it is money.
 
 # Setup variables for the greatest increase and decrease:
-great_incr = 0 
-great_dcr = 0
-great_inc_date = 0
-great_dcr_date=0
+great_incr = 0.0
+great_dcr = 0.0
+great_inc_date = ""
+great_dcr_date=""
 
 # Open the CSV:
 with open(csvpath) as csvfile:
@@ -26,10 +28,10 @@ with open(csvpath) as csvfile:
     for row in csvreader:
         total_number_months = total_number_months + 1 #looking for the months.
         profit_or_losses = profit_or_losses+float(row[1]) #looking for net total amount of profit or losses.
-        if prev_row: 
+        if prev_row: #previous row is only empty in first loop. we are eval. change starting the second loop.
             change = float(row[1]) - float(prev_row[1]) #calculating the change in each row.
             total_change = total_change + change # here, we will obtain total change by adding to the initial value (0), the difference between the rows.
-            if change > great_incr: 
+            if change > great_incr: #to find the great increase/decrease, running the conditional
                 great_incr = change
                 great_inc_date = row[0]
             if change < great_dcr:
@@ -38,7 +40,7 @@ with open(csvpath) as csvfile:
 
         prev_row=row
    
-# Display the net total:
+# Display the net total and analysis summary by creating a variable that can be used later for the display and file output:
 result_str = f"""
     Financial Analysis:
     ----------------------------------------
