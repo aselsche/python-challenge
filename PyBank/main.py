@@ -31,7 +31,7 @@ with open(csvpath) as csvfile:
         if prev_row: #previous row is only empty in first loop. we are eval. change starting the second loop.
             change = float(row[1]) - float(prev_row[1]) #calculating the change in each row.
             total_change = total_change + change # here, we will obtain total change by adding to the initial value (0), the difference between the rows.
-            if change > great_incr: #to find the great increase/decrease, running the conditional
+            if change > great_incr: #to find the great increase/decrease
                 great_incr = change
                 great_inc_date = row[0]
             if change < great_dcr:
@@ -40,7 +40,7 @@ with open(csvpath) as csvfile:
 
         prev_row=row
    
-# Display the net total and analysis summary:
+# Display the net total and analysis summary in separate rows:
 result_str = f"""
     Financial Analysis:
     ----------------------------------------
