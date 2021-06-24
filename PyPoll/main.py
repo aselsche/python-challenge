@@ -18,32 +18,27 @@ with open(csvpath) as csvfile: # Open the CSV file
 
     # Loop through the dataset looking for the total number of votes :
     for row in csvreader:
-        # if row[2] in candidates.keys():
-        #     candidates[row[2]] = candidates[row[2]] + 1
-        # else:
-        #     candidates[row[2]]=1 #initializing the key for specific candidate
-        candidates[row[2]] = candidates.get(row[2],0) + 1 #this is a shorter way of above.
-        #Here I am using .get method to return the value of the item with the speciffied key. 
+        candidates[row[2]] = candidates.get(row[2],0) + 1 #Using .get method to return the value of the item with the speciffied key. 
         total_num_votes = total_num_votes+1
 
-winner=["No Name",0] #setting up winner variable to track who got the most votes.
+winner=["No Name",0] #setting up a winner variable to track who got the most votes.
 all_candidates="" #setting up a variable for all candidates as a string.
-for name, votes in candidates.items(): #iterating using .items to find the winner.
+
+for name, votes in candidates.items(): #iterating using .items method to find the winner.
     all_candidates +=f"{name} : {calc_perc(votes,total_num_votes)} ({votes})\n"
     if votes > winner[1]: #using if statement to check if current item has more votes than previous item with most votes
         winner=[name, votes] #then spit out the winner name and the amount of votes.
 
-# setting up a variable as a f string with several rows so we can re-use it to print/and save the file later.
-election_results= f""" 
+# Printing results
+election_results = f""" 
 Election Results
 ------------------------------------
 Total Votes: {total_num_votes}
 -----------------------------------
 {all_candidates}-----------------------------------
-Winner: {winner[0]}
+Winner: {winner[0]} is the WINNER!
 -----------------------------------
 """
-
 print(election_results) #display election results
 textfile_path = os.path.join(".","Analysis", "elections_results.txt")  #path to a folder where it will be saved
 with open(textfile_path, "w") as text_file:
